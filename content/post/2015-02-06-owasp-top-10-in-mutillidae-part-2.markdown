@@ -2,6 +2,8 @@
 categories:
 - pentest
 - web
+tags:
+- owasp
 comments: false
 date: 2015-02-06T04:29:36Z
 title: OWASP Top 10 in Mutillidae (Part2)
