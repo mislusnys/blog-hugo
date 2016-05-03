@@ -4,6 +4,7 @@ categories:
 - web
 tags:
 - owasp
+- mutillidae
 comments: false
 date: 2015-02-03T10:48:16Z
 title: OWASP Top 10 in Mutillidae (Part1)

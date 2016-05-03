@@ -1,11 +1,10 @@
 baseurl = "http://mislusnys.github.io/"
-#baseurl = "http://localhost:1313/"
 disablePathToLower = true
 languageCode = "en-us"
 theme = "Hugo-Octopress"
 
 # this will appear in the header at the top of the page and in the landing page's title
-title = "InfoSec and Stuff"
+#title = "Empirical Security Research"
 
 # number of blog posts displayed in each page
 paginate = 6
