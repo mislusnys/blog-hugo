@@ -4,7 +4,7 @@ languageCode = "en-us"
 theme = "Hugo-Octopress"
 
 # this will appear in the header at the top of the page and in the landing page's title
-#title = "Empirical Security Research"
+#title = ""
 
 # number of blog posts displayed in each page
 paginate = 6
@@ -22,8 +22,8 @@ post = "/:year-:month-:day-:title/"
   category = "categories"
 
 [params]
-  sidebar_header = "About"
-  sidebar_text = "I am interested in infosec, reverse engineering and finding bugs. <br> <br> Sometimes, I write things down - to learn them better. <br> <br> Get a hold of me - slusnys dot mindaugas at gmail dot com"
+  sidebar_header = ""
+  #sidebar_text = "Get a hold of me - slusnys dot mindaugas at gmail dot com"
   search_engine_url = "https://www.google.com/search"
   
   # number of recent posts that will be shown in the sidebar - default is 5
@@ -45,7 +45,7 @@ post = "/:year-:month-:day-:title/"
   weight = -10
 
 [[menu.main]]
-  Name = "Archive"
+  Name = "All posts"
   URL = "/archive/"
   weight = -5
 
