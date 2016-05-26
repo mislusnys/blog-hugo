@@ -1,20 +1,16 @@
----
-categories:
-- pentest
-- web
-tags:
-- owasp
-- mutillidae
-comments: false
-date: 2015-02-06T04:29:36Z
-title: OWASP Top 10 in Mutillidae (Part2)
-url: /2015/02/06/owasp-top-10-in-mutillidae-part-2/
----
++++
+categories = ["web"]
+description = ""
+keywords = []
+date = "2015-02-06T04:29:36Z"
+title = "OWASP Top 10 in Mutillidae (Part2)"
+
++++
 
 This post is continuation from [previous post][prev]. We explore less common, however, still potentially very dangerous *OWASP Top 10* threats. 
 Here we go through 6th to 10th places in the list.
 
-[prev]: /2015/02/03/owasp-top-10-in-mutillidae/ "Part 1"
+[prev]: /blog/2015/02/03/owasp-top-10-in-mutillidae-part1
 
 <!--more-->
 
@@ -24,7 +20,7 @@ Many web applications do not properly protect sensitive data, such as credit car
 
 Sensitive data can be extracted from HTML storage, HTTP headers or in this example even from HTML comments in the page source code (*index.php*):
 
-{{<highlight html>}}
+```
 <!-- I think the database password is set to blank or perhaps samurai.
 It depends on whether you installed this web app from irongeeks site or
 are using it inside Kevin Johnsons Samurai web testing framework.
@@ -33,7 +29,7 @@ this comment. I remember that security instructor saying we should use the
 framework comment symbols (ASP.NET, JAVA, PHP, Etc.)
 rather than HTML comments, but we all know those
 security instructors are just making all this up. -->			<!-- End Content -->
-{{</highlight>}}
+```
 
 ## A7 Missing Function Level Access Control
 
@@ -57,7 +53,7 @@ While it prevents web crawlers from indexing these files and folders, it also gi
 contains information about few legitimate accounts). 
 
 Another "security by obscurity" example is "secret" administrative or configuration pages. Using Burp-Intruder in sniper mode or dirbuster we could find secret pages. Sometimes they are very obvious such as 
-*secret.php, admin.php, administrator.php*. In our case `phpmyadmin.php` page is accessible to anyone, even anonymous user.
+*secret.php, admin.php, administrator.php*. In our case *phpmyadmin.php* page is accessible to anyone, even anonymous user.
 
 ## A8 Cross-Site Request Forgery (CSRF)
 
@@ -69,7 +65,7 @@ The `add-to-your-blog.php` page is vulnerable to CSRF. We can intercept the POST
 
 Using this information we can construct a malicious form which submits the data upon loading the page (onload function):
 
-{{<codecaption lang="html" title="HTML Injection">}}
+```html
 <html>
     <body onload="document.createElement('form').submit.call(document.getElementById('evil'))">
         <form id="evil" action="http://192.168.1.66/mutillidae/index.php?page=add-to-your-blog.php" method="post" enctype="application/x-www-form-urlencoded"> 
@@ -79,7 +75,7 @@ Using this information we can construct a malicious form which submits the data 
         </form>
     </body>
 </html>
-{{</codecaption>}}
+```
 
 If logged in user (with a valid session token) visits this malicious page, then a new blog post is made on the users behalf:
 

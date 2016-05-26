@@ -1,15 +1,11 @@
----
-categories:
-- pentest
-- web
-tags:
-- owasp
-- mutillidae
-comments: false
-date: 2015-02-03T10:48:16Z
-title: OWASP Top 10 in Mutillidae (Part1)
-url: /2015/02/03/owasp-top-10-in-mutillidae/
----
++++
+categories = ["web"]
+description = ""
+keywords = [""]
+date = "2015-02-03T10:48:16Z"
+title = "OWASP Top 10 in Mutillidae (Part1)"
+
++++
 
 ## Intro
 
@@ -43,7 +39,8 @@ The first SQL injection is in the login page. If we input single quote as passwo
 
 `SELECT * FROM accounts WHERE username='' AND password='''`
 
-We can see that both username and password fields should be injectable. We can use that information to login as any user. Using username `admin'-- -` and any password or username `admin` and password `' or 1=1-- -` we can login as admin.
+We can see that both username and password fields should be injectable. We can use that information to login as any user. 
+Using username **`admin'-- -`** and any password or username **`admin`** and password **`' or 1=1-- -`** we can login as admin.
 
 ![admin](/images/2015/02/03/admin.png)
 
@@ -73,7 +70,7 @@ available databases [8]:
 
 We can dump user account data:
 
-{{<codecaption lang="text" title="SQLMap Table Dump">}}
+```
 Database: nowasp
 Table: accounts
 [23 entries]
@@ -104,7 +101,7 @@ Table: accounts
 | 11  | scotty   | Evil          | FALSE    | password     | Scotty    | Scotty do                               |
 | 10  | dreveil  | Evil          | FALSE    | password     | Dr.       | Preparation H                           |
 +-----+----------+---------------+----------+--------------+-----------+-----------------------------------------+
-{{</codecaption>}}
+```
 
 ### Other Injections
 
@@ -126,12 +123,11 @@ It is actually displayed two times, because it is included in two different plac
 
 ![DNS](/images/2015/02/03/dns.png)
 
-In this page the user input is intended to a shell command's argument. However, most shells support stacked commands and if user input is not sanitized, we can execute additional commands in the context of the web server. 
-In Linux we can add additional commands with `;` and in Windows with `&` or `&&`:
+In this page the user input is intended to a shell command's argument. 
+However, most shells support stacked commands and if user input is not sanitized, we can execute additional commands in the context of the web server. 
 
-`& dir`
-
-will result in:
+In Linux we can add additional commands with `;` and in Windows with `&` or `&&`.
+Adding `& dir` will result in:
 
 ![dir](/images/2015/02/03/dir.png)
 
@@ -148,10 +144,12 @@ Mutillidae has a page called "View User Privilege Level" where an attacker can e
 ![priv](/images/2015/02/03/priv.png)
 
 This page has a default http parameter `iv=6bc24fc1ab650b25b4114e93a98f1eba` which somehow encodes the 3 ids shown in the picture.
-By changing various bytes in the `iv` parameter we can change the values displayed on the page. After a few tries we can see that **5th** and **8th** byte directly correspond to the first chars of `UID` and `GID`.
+By changing various bytes in the *iv* parameter we can change the values displayed on the page. After a few tries we can see that **5th** and **8th** byte directly correspond to the first chars of *UID* and *GID*.
 With the value 6bc24fc1***00***650b***00***b4114e93a98f1eba, 
-we have `0x9a` and `0x14` as first `UID` and `GID` chars respectively. Normally we could use burp to brute force the values (256 + 256 tries), but here simple `XOR` is used, so we
-can do it by hand. We are looking for values that `XOR` with `0x9a` and `0x14` and produce `0x30`. Since `XOR` is communicative, we can calculate:
+we have *0x9a* and *0x14* as first *UID* and *GID* chars respectively. 
+
+Normally we could use burp to brute force the values (256 + 256 tries), but here simple *XOR* is used, so we
+can do it by hand. We are looking for values that *XOR* with *0x9a* and *0x14* and produce *0x30*. Since *XOR* is communicative, we can calculate:
 
 	0x9A XOR 0x30 = 0xAA
 	0x14 XOR 0x30 = 0x24
@@ -180,14 +178,14 @@ Mutillidae contains a few *Local File Inclusion (LFI)* vulnerabilities. One is i
 
 `http://192.168.1.66/mutillidae/index.php?page=arbitrary-file-inclusion.php`
 
-Here any file specified in the `page` variable gets included in the current page. This allows attacker to execute any php file present on the web server or view contents of sensitive non php files (logs, configuration, etc.).
+Here any file specified in the *page* variable gets included in the current page. This allows attacker to execute any php file present on the web server or view contents of sensitive non php files (logs, configuration, etc.).
 In some cases this vulnerability allows to include remote php files (*Remote File Inclusion*), however, newer PHP configurations disable this by default. 
 
 Another vulnerable page is `text-file-viewer.php`. This page allows us to view text files from a remote server, by selecting them from a drop-down list. 
 However, if intercept the request with burp and change `textfile` variable, we can view the source code of any
 web server files. We can view the source code of the current page:
 
-{{< codecaption lang="perl" title="PHP Source" >}}
+```php
 try {
 	switch ($_SESSION["security-level"]){
 		case "0": // This code is insecure
@@ -209,7 +207,7 @@ try {
 }catch(Exception $e){
 	echo $CustomErrorHandler->FormatError($e, "Error in text file viewer. Cannot load file.");
 }// end try
-{{</codecaption>}}
+```
 
 
 ## <a name="a5"></a> A5 Security Misconfiguration
@@ -217,11 +215,11 @@ try {
 Good security requires having a secure configuration defined and deployed for the application, frameworks, application server, web server, database server, and platform. Secure settings should be defined, implemented, and maintained, as defaults are often insecure. Additionally, software should be kept up to date.
 
 Most common security misconfiguration is relying on "hidden" directories and files. The only security here being the assumption that the attacker will not find out the names of such resources, because they have no links to them
-from the main pages. However, these names can be guessed or brute forced. We have a few of them in our web server. World accessible *passwords* folder:
+from the main pages. However, these names can be guessed or brute forced. We have a few of them in our web server. World accessible `passwords` folder:
 
 ![pass](/images/2015/02/03/pass.png)
 
-Or *data* folder:
+Or `data` folder:
 
 ![data](/images/2015/02/03/data.png)
 
@@ -234,11 +232,11 @@ After uploading the shell, we can browse to it and execute commands on the serve
 
 `http://192.168.1.66/mutillidae/upload/shell.php?cmd=dir`
 
-{{<codecaption lang="text" title="Command Execution">}}
+```
 Volume in drive C has no label. Volume Serial Number is E2B8-4C80 Directory of C:\xampp\htdocs\mutillidae\upload 02/05/2015 11:24 AM
 . 02/05/2015 11:24 AM
 .. 02/05/2015 11:05 AM 132 shell.php 1 File(s) 132 bytes 2 Dir(s) 12,596,895,744 bytes free dir
-{{</codecaption>}}
+```
 
 ### To be continued...
 

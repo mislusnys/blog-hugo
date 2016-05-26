@@ -1,72 +1,83 @@
 baseurl = "http://mislusnys.github.io/"
-disablePathToLower = true
+title = "Blog"
 languageCode = "en-us"
-theme = "Hugo-Octopress"
+#disqusShortname = "your_disqus_shortname" # Optional, enable Disqus integration
+#MetaDataFormat = "toml"
+theme = "hyde-x"
+paginate = 10
 
-# this will appear in the header at the top of the page and in the landing page's title
-#title = ""
+[author]
+    name = "Mindaugas Slusnys"
 
-# number of blog posts displayed in each page
-paginate = 6
-
-# change the article links
 [permalinks]
-post = "/:year-:month-:day-:title/"
+    # Optional. Change the permalink format for the 'post' content type.
+    # The format shown here is the same one Jekyll/Octopress uses by default.
+    post = "/blog/:year/:month/:day/:title/"
 
-# to generate tags and categories
-# tags are generated using the template hugo-octopress/layouts/indexes/tags.html
-# categories are generated using the template hugo-octopress/layouts/indexes/categories.html
-# if you change anything here, rename the templates/directories accordingly
-[indexes]
-  tag = "tags"
-  category = "categories"
+[taxonomies]
+    # Optional. Use if you want tags and lists.
+    category = "categories"
+    tag = "tags"
 
+#
+# All parameters below here are optional and can be mixed and matched.
+#
 [params]
-  sidebar_header = ""
-  #sidebar_text = "Get a hold of me - slusnys dot mindaugas at gmail dot com"
-  search_engine_url = "https://www.google.com/search"
-  
-  # number of recent posts that will be shown in the sidebar - default is 5
-  SidebarRecentLimit = 5
+    # If false display full article contents in blog index.
+    # Otherwise show description and 'read on' link to individual blog post page.
+    # Default (if omitted) is true.
+    truncate = true
 
-  # if false, all of posts' content will appear on front page (and in pagination) - not recommended
-  # be sure to use the  delimiter
-  truncate = true
+    # Used when a given page doesn't set its own.
+    defaultDescription = "Your default page description"
+    defaultKeywords = "your,default,page,keywords"
 
-  # author's name (this will appear in metadata and at the bottom of posts)
-  author = "Mindaugas Slusnys"
+    # Hide estimated reading time for posts.
+    # Default (if omitted) is false.
+    hideReadingTime = false
 
-  # appears in the site header under website title
-  subtitle = ""
+    # Changes sidebar background and link/accent colours.
+    # See below for more colour options.
+    # This also works: "theme-base-08 layout-reverse", or just "layout-reverse".
+    #theme = "theme-base-0b"
+
+    # Select a syntax highight.
+    # Check the static/css/highlight directory for options.
+    highlight = "sunburst"
+
+    # Optional additional custom CSS file URL, will override other styles.
+    customCSS = ""
+
+    # Displays under the author name in the sidebar, keep it short.
+    # You can use markdown here.
+    #tagline = "Your favourite quote or soundbite."
+
+    # Text for the top menu link, which goes the root URL for the site.
+    # Default (if omitted) is "Blog".
+    home = "Blog"
+
+    # Metadata used to drive integrations.
+    #googleAnalytics = "Your Google Analytics tracking code"
+    #gravatarHash = "MD5 hash of your Gravatar email address"
+
+    # Sidebar social links, these must be full URLs.
+    github = ""
+    bitbucket = ""
+    stackOverflow = ""
+    linkedin = ""
+    googleplus = ""
+    facebook = ""
+    twitter = ""
+    youtube = ""
+
+    # Other social-like sidebar links
+    rss = false  # switch to true to enable RSS icon link
+    #flattr = ""  # populate with your flattr uid
 
 [[menu.main]]
-  Name = "Blog"
-  URL = "/"
-  weight = -10
+    name = "Posts"
+    weight = -10
+    identifier = "posts"
+    url = "/post/"
 
-[[menu.main]]
-  Name = "All posts"
-  URL = "/archive/"
-  weight = -5
 
-  # text of the Continue Reading label - if not set, it will default to "Read On &rarr;"
-  # &rarr; == right arrow, but it gets messed up in the string so it is added to hugo-octopress/layouts/index.html manually
-  # this can be modified in hugo-octopress/layouts/index.html
-  continue_reading = "More"
-
-  # disqus - simply enter your disqus - using the template from https://gohugo.io/extras/comments/ at /hugo-octopress/layouts/partials/disqus.html that disables disqus when running on localhost (if you are testing it offline remember to comment out the if in the template that checks for localhost)
-  # the template is injected into the pages in /hugo-octopress/layouts/partials/post-footer.html which is in every post (and not non-post pages like license.html)
-  #disqusShortname = "your disqus short name"
-
-  # Google analytics - _internal/googleanalytics.html in injected in hugo-octopress/layouts/partials/header.html
-  #googleAnalytics = "Your Google Analytics tracking code"
-
-  # switch to true to enable RSS icon link in the navigation menu
-  rss = true  
-
-  # Website's default description used in meta tags
-  defaultDescription = "Infosec"
-
-  # keywords used in meta tags
-  # does this even work in action?
-  # defaultKeywords = ["keyword1" , "keyword2" , "keyword3" , "keyword4"]

