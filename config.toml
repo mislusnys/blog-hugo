@@ -1,5 +1,5 @@
 baseurl = "http://mislusnys.github.io/"
-title = "Blog"
+title = "Infosec Blog"
 languageCode = "en-us"
 #disqusShortname = "your_disqus_shortname" # Optional, enable Disqus integration
 #MetaDataFormat = "toml"
@@ -61,17 +61,17 @@ paginate = 10
     #gravatarHash = "MD5 hash of your Gravatar email address"
 
     # Sidebar social links, these must be full URLs.
-    github = ""
+    github = "https://github.com/mislusnys"
     bitbucket = ""
     stackOverflow = ""
-    linkedin = ""
+    linkedin = "https://www.linkedin.com/in/mislusnys"
     googleplus = ""
     facebook = ""
     twitter = ""
     youtube = ""
 
     # Other social-like sidebar links
-    rss = false  # switch to true to enable RSS icon link
+    rss = true  # switch to true to enable RSS icon link
     #flattr = ""  # populate with your flattr uid
 
 [[menu.main]]
