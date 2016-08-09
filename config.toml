@@ -57,7 +57,7 @@ paginate = 10
     home = "Blog"
 
     # Metadata used to drive integrations.
-    #googleAnalytics = "Your Google Analytics tracking code"
+    googleAnalytics = "UA-82196864-1"
     #gravatarHash = "MD5 hash of your Gravatar email address"
 
     # Sidebar social links, these must be full URLs.
