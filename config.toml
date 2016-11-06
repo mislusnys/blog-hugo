@@ -43,7 +43,7 @@ paginate = 10
 
     # Select a syntax highight.
     # Check the static/css/highlight directory for options.
-    highlight = "sunburst"
+    highlight = "monokai"
 
     # Optional additional custom CSS file URL, will override other styles.
     customCSS = ""
@@ -67,7 +67,7 @@ paginate = 10
     linkedin = "https://www.linkedin.com/in/mislusnys"
     googleplus = ""
     facebook = ""
-    twitter = ""
+    twitter = "https://twitter.com/mislusnys"
     youtube = ""
 
     # Other social-like sidebar links
