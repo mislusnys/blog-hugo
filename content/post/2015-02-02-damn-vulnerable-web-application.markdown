@@ -1,7 +1,7 @@
 +++
-categories = ["web", "php"]
+categories = ["owasp", "web", "php"]
 description = ""
-keywords = []
+keywords = ["owasp", "metasploitable", "sqli", "exploit"]
 date = "2015-02-02T08:40:17Z"
 title = "Exploring Damn Vulnerable Web Application"
 

@@ -15,6 +15,7 @@ menu = "main"
 - [Videos](#videos)
 
 #### Penetration Testing Resources
+
 * [Pentester Tips](http://www.pentester.tips/) - Penetration Testing Tips, Skills Matrix
 * [PwnWiki](http://pwnwiki.io/) - collection TTPs (tools, tactics, and procedures) for what to do after access has been gained.
 * [Wechall](https://www.wechall.net/) - wargames, challenges
@@ -22,8 +23,7 @@ menu = "main"
 * [Pentestit Lab](https://lab.pentestit.ru/) - lab to practice pentesting skills
 
 #### Exploit Development and Reverse Engineering
-* [ILSpy](http://ilspy.net/) - .NET decompiler
-* [dotPeek](https://www.jetbrains.com/decompiler/) - .NET decompiler 
+
 * [CFF Explorer](http://www.ntcore.com/exsuite.php) - PE tools
 * [API Monitor](http://www.rohitab.com/apimonitor) - Win API monitor
 * [HxD](https://mh-nexus.de/en/downloads.php?product=HxD) - Windows Hex Editor
@@ -42,6 +42,7 @@ menu = "main"
 * [Cheat Sheets](https://github.com/jshaw87/Cheatsheets) - several cheat sheets 
 
 ### Videos
+
 * [Responder for Purple Teams Kevin Gennuso](https://www.youtube.com/watch?v=sYaE40kkEos)
 * [Hunting high value targets in corporate networks Josh Stone](https://www.youtube.com/watch?v=FDvTVJVtxac)
 * [Fuzz Smarter Not Harder An afl fuzz Primer Craig Young](https://www.youtube.com/watch?v=29RbO5bftwo)

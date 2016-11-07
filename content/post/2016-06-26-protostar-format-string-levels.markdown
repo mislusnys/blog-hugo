@@ -2,7 +2,7 @@
 categories = ["ctf", "linux"]
 date = "2016-06-26T03:10:18-04:00"
 description = ""
-keywords = []
+keywords = ["Protostar", "exploit", "ctf", "format string"]
 title = "Protostar Format String (Levels 0-4)"
 
 +++

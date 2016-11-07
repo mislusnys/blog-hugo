@@ -2,7 +2,7 @@
 categories = ["ctf", "reverse engineering"]
 date = "2016-11-06T18:56:21+01:00"
 description = ""
-keywords = []
+keywords = ["Flare-On", "ctf", "solutions", "writeup", "reversing", "reverse engineering"]
 title = "Flare-On Reversing Challenges 2016"
 
 +++

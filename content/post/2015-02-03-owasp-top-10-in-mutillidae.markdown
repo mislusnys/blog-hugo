@@ -1,7 +1,7 @@
 +++
-categories = ["web"]
+categories = ["owasp", "web"]
 description = ""
-keywords = [""]
+keywords = ["mutillidae", "owasp", "exploit", "sqli"]
 date = "2015-02-03T10:48:16Z"
 title = "OWASP Top 10 in Mutillidae (Part1)"
 

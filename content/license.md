@@ -16,7 +16,7 @@ All non-code blog content is licensed under [Creative Commons BY-SA-4].
 All source code files and snippets found on this blog, unless otherwise
 explicitly noted, are licensed under the terms below.
 
-Copyright &copy; 2015 - Mindaugas Slusnys
+Copyright &copy; 2016 - Mindaugas Slusnys
 
 ```html
 Licensed under the Apache License, Version 2.0 (the "License");

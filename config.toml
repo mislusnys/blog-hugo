@@ -29,8 +29,8 @@ paginate = 10
     truncate = true
 
     # Used when a given page doesn't set its own.
-    defaultDescription = "Your default page description"
-    defaultKeywords = "your,default,page,keywords"
+    defaultDescription = "Infosec Blog"
+    defaultKeywords = "owasp,ctf,reverse engineering,exploit,python"
 
     # Hide estimated reading time for posts.
     # Default (if omitted) is false.
